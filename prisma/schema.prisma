@@ -11,7 +11,7 @@ model Product {
   id            Int             @id @default(autoincrement())
   name          String
   image         String          @default("default.jpg")
-  price         Decimal         @db.Money
+  price         Decimal         @db.Decimal(10, 2)
   ingredients   String?
   orderProducts OrderProducts[]
 }
@@ -36,7 +36,7 @@ model OrderProducts {
 model Order {
   id            Int             @id @default(autoincrement())
   userId        Int
-  total         Decimal         @db.Money
+  total         Decimal         @db.Decimal(10, 2)
   createdAt     DateTime        @default(now())
   updatedAt     DateTime?
   obs           String?
