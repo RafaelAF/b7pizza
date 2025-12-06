@@ -6,8 +6,10 @@ import { useEffect, useState } from "react"
 import { CartProduct } from "./CartProduct"
 import { Button } from "../ui/button"
 import { decimalToMoney } from "@/lib/utils"
+import { useAuth } from "@/stores/auth"
 
 export const CartList = () => {
+    const auth = useAuth()
     const cart = useCart()
     const products = useProducts()
 
@@ -42,7 +44,14 @@ export const CartList = () => {
                 <div>Frete: {decimalToMoney(shippingCost)}</div>
                 <div className="font-bold">Total: {decimalToMoney(subTotal + shippingCost)}</div>
             </div>
-            <Button>Finalizar compra</Button>
+            {auth.token &&
+                <Button className="bg-green-700 hover:bg-green-900">Finalizar compra</Button>
+            }
+            {!auth.token &&
+                <Button
+                    onClick={()=>auth.setOpen(true)}
+                >Login / Cadastro</Button>
+            }
         </>
     )
 }

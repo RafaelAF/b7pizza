@@ -11,7 +11,7 @@ export const hasEmail = async (email: string) => {
 
 export const validadeAuth = async (email: string, password: string) => {
     const user = await prisma.user.findUnique({
-        where: { email, password }
+        where: { email }
     })
     if(!user) return false
     if(!bcrypt.compareSync(password, user.password)) {
